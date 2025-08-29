@@ -3,15 +3,20 @@
 #include <vector>
 #include "../../lib/Client.hpp"
 #include "../../lib/Data.hpp"
+#include "../../lib/Permissions.hpp"
 #include "../../lib/utils/Convert.hpp"
 #include "../../../data/model/Types.hpp"
 
 namespace nsFindClient
 {
 
-    void ShowFindClientScreen(string FileName)
+    void ShowFindClientScreen(string FileName, stUserInfo CurrentUser)
     {
-
+        if (!nsPermissions::CheckAccessPermisson(enMainMenuePermissions::pFindClient, CurrentUser))
+        {
+            nsPermissions::ShowAccesDenaidMassage();
+            return;
+        }
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------\n";
         cout << "-------------------------------------------Find Client(s) Screen-----------------------------------------------------------------------\n";
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------\n";

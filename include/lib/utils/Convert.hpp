@@ -9,7 +9,7 @@ using namespace std;
 namespace nsConvert
 {
 
-    string ConvertDataFromeRecordToLine(stClientInfo ClientInfo, string Seperator = "-") // To Convert ClientData From Record (struct) To Line(String)
+    string ConvertClientDataFromeRecordToLine(stClientInfo ClientInfo, string Seperator = "/") // To Convert ClientData From Record (struct) To Line(String)
     {
         string ClientDataLine = "";
 
@@ -22,7 +22,7 @@ namespace nsConvert
         return ClientDataLine;
     }
 
-    stClientInfo ConvertDataFromeLineToRecord(string ClientDataLine, string Seperator = "-") // To Convert ClientData From Line(String) To Record (struct) Using SpletString
+    stClientInfo ConvertClientDataFromeLineToRecord(string ClientDataLine, string Seperator = "/") // To Convert ClientData From Line(String) To Record (struct) Using SpletString
     {
         stClientInfo ClientInfo;
 
@@ -37,6 +37,32 @@ namespace nsConvert
         ClientInfo.Balance = stod(vClientsDataLine[4]);
 
         return ClientInfo;
+    }
+
+    string ConvertUserDataFromeRecordToLine(stUserInfo UserInfo, string Seperator = "/") // To Convert ClientData From Record (struct) To Line(String)
+    {
+        string UserDataLine = "";
+
+        UserDataLine += UserInfo.UserName + Seperator;
+        UserDataLine += UserInfo.Password + Seperator;
+        UserDataLine += to_string(UserInfo.Permissions);
+
+        return UserDataLine;
+    }
+
+    stUserInfo ConvertUserDataFromeLineToRecord(string UserDataLine, string Seperator = "/") // To Convert ClientData From Line(String) To Record (struct) Using SpletString
+    {
+        stUserInfo UserInfo;
+
+        vector<string> vUsersDataLine;
+
+        vUsersDataLine = nsSplitString::SplitString(UserDataLine, Seperator);
+
+        UserInfo.UserName = vUsersDataLine[0];
+        UserInfo.Password = vUsersDataLine[1];
+        UserInfo.Permissions = stoi(vUsersDataLine[2]);
+
+        return UserInfo;
     }
 
 }

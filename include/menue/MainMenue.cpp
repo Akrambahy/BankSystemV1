@@ -6,13 +6,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <limits>
 #include <fstream>
 #include <iomanip>
 #include "../lib/Data.hpp"
 #include "TransactiosMenue.cpp"
+#include "ManageUsersMenue.cpp"
 #include "../../data/model/Types.hpp"
 #include "../lib/Client.hpp"
 #include "../features/mainfeatures/ShowAllClients.hpp"
+#include "../features/mainfeatures/Login.hpp"
 #include "../features/mainfeatures/AddNewClients.hpp"
 #include "../features/mainfeatures/DeleteClient.hpp"
 #include "../features/mainfeatures/UpdateClient.hpp"
@@ -26,7 +29,7 @@ namespace nsMainMenue
 
     short ReadMainMenueElement()
     {
-        cout << "Choose what do you want to do? [1 to 6] : \n";
+        cout << "Choose what do you want to do? [1 to 8] : \n";
         short Choice = 0;
         cin >> Choice;
         return Choice;
@@ -44,45 +47,56 @@ namespace nsMainMenue
         cout << "   [4] Update Client Info.                 \n";
         cout << "   [5] Find Client.                        \n";
         cout << "   [6] Transactions.                        \n";
-        cout << "   [7] Exit.                               \n";
+        cout << "   [7] Manage Users.                        \n";
+        cout << "   [8] Logout.                               \n";
         cout << "===========================================\n";
         return enMainMenueElement(ReadMainMenueElement());
     }
 
-    void PerformMainManue(string FileName)
+    void PerformMainManue(string ClientsFileName, string UsersFileName, stUserInfo CurrentUser)
     {
-
-        switch (ShowMainMenue())
+        enMainMenueElement MainMenueScreen = ShowMainMenue();
+        switch (MainMenueScreen)
         {
+
         case enMainMenueElement::ShowAllClients:
-            nsShowAllClients::ShowAllClientsScreen(FileName);
-            PerformMainManue(FileName);
+            nsShowAllClients::ShowAllClientsScreen(ClientsFileName, CurrentUser);
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
             break;
         case enMainMenueElement::AddNewClient:
-            nsAddNewClients::ShowAddNewClientsScreen(FileName);
-            PerformMainManue(FileName);
+            nsAddNewClients::ShowAddNewClientsScreen(ClientsFileName, CurrentUser);
+            system("clear");
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
             break;
         case enMainMenueElement::DeleteClient:
-            nsDeleteClient::ShowDeleteClientScreen(FileName);
-            PerformMainManue(FileName);
+            nsDeleteClient::ShowDeleteClientScreen(ClientsFileName, CurrentUser);
+            system("clear");
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
             break;
 
         case enMainMenueElement::UpdateClientInfo:
-            nsUpdateClient::ShowUpdateClientScreen(FileName);
-            PerformMainManue(FileName);
+            nsUpdateClient::ShowUpdateClientScreen(ClientsFileName, CurrentUser);
+            system("clear");
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
             break;
         case enMainMenueElement::FindClient:
-            nsFindClient::ShowFindClientScreen(FileName);
-            PerformMainManue(FileName);
+            nsFindClient::ShowFindClientScreen(ClientsFileName, CurrentUser);
+            system("clear");
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
             break;
         case enMainMenueElement::Transactions:
-            nsTransactionsMenue::PerformTransactionsManue(FileName);
-            PerformMainManue(FileName);
+            nsTransactionsMenue::PerformTransactionsManue(ClientsFileName, CurrentUser);
+            system("clear");
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
             break;
-        case enMainMenueElement::Exit:
+        case enMainMenueElement::ManageUsers:
+            nsManageUsersMenue::PerformManageUsersMenue(UsersFileName);
+            system("clear");
+            PerformMainManue(ClientsFileName, UsersFileName, CurrentUser);
+            break;
+        case enMainMenueElement::Logout:
             nsExit::ShowExitScreen();
             break;
-
         default:
             break;
         }

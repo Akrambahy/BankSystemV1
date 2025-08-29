@@ -166,7 +166,7 @@ namespace nsClient
 
             PrintClientDataCard(Client);
 
-            cout << "\n\n Are You Sure You Want Delete This Client [Y]/[N] ?\n";
+            cout << "\n\n Are You Sure You Want Update This Client [Y]/[N] ?\n";
             cin >> Answer;
 
             if (Answer == 'Y' || Answer == 'y')

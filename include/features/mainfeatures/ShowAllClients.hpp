@@ -5,12 +5,18 @@
 #include "../../lib/Data.hpp"
 #include "../../lib/utils/Convert.hpp"
 #include "../../../data/model/Types.hpp"
+#include "../../lib/Permissions.hpp"
 
 namespace nsShowAllClients
 {
 
-    void ShowAllClientsScreen(string FileName)
+    void ShowAllClientsScreen(string FileName, stUserInfo CurrentUser)
     {
+        if (!nsPermissions::CheckAccessPermisson(enMainMenuePermissions::pShowClientList, CurrentUser))
+        {
+            nsPermissions::ShowAccesDenaidMassage();
+            return;
+        }
 
         vector<stClientInfo> vClients = nsData::LoadClientsDataFromFile(FileName);
 

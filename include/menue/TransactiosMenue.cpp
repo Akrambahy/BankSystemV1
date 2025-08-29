@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include "../../data/model/Types.hpp"
-#include "MainMenue.cpp"
-
+#include "../lib/Permissions.hpp"
 #include "../features/transactionsfeatures/Deposit.hpp"
 #include "../features/transactionsfeatures/WithDraw.hpp"
 #include "../features/transactionsfeatures/TotalBalances.hpp"
@@ -35,22 +34,29 @@ namespace nsTransactionsMenue
         return enTransacionsMenueElement(ReadTransactionsMenueElement());
     }
 
-    void PerformTransactionsManue(string FileName)
+    void PerformTransactionsManue(string FileName, stUserInfo CurrentUser)
     {
+        if (!nsPermissions::CheckAccessPermisson(enMainMenuePermissions::pFindClient, CurrentUser))
+        {
+            nsPermissions::ShowAccesDenaidMassage();
+            return;
+        }
 
         switch (ShowTransactionsMenue())
         {
         case enTransacionsMenueElement::Deposit:
             nsDeposit::ShowDepositScreen(FileName);
-            PerformTransactionsManue(FileName);
+            system("clear");
+            PerformTransactionsManue(FileName, CurrentUser);
             break;
         case enTransacionsMenueElement::WithDraw:
             nsWithDraw::ShowWithDrawScreen(FileName);
-            PerformTransactionsManue(FileName);
+            system("clear");
+            PerformTransactionsManue(FileName, CurrentUser);
             break;
         case enTransacionsMenueElement::TotalBalances:
             nsTotalBalances::ShowTotalBalancesScreen(FileName);
-            PerformTransactionsManue(FileName);
+            PerformTransactionsManue(FileName, CurrentUser);
             break;
         case enTransacionsMenueElement::MainManue:
             break;

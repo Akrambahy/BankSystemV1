@@ -12,7 +12,7 @@ using namespace std;
 namespace nsData
 {
 
-    void AddDataLineToFile(string FileName, string ClientDataLine)
+    void AddDataLineToFile(string FileName, string DataLine)
     {
 
         fstream MyFile;
@@ -22,7 +22,7 @@ namespace nsData
         if (MyFile.is_open())
         {
 
-            MyFile << ClientDataLine << endl;
+            MyFile << DataLine << endl;
 
             MyFile.close();
         }
@@ -45,7 +45,7 @@ namespace nsData
             while (getline(MyFile, Line))
             {
 
-                Client = nsConvert::ConvertDataFromeLineToRecord(Line);
+                Client = nsConvert::ConvertClientDataFromeLineToRecord(Line);
 
                 vClientsData.push_back(Client);
             }
@@ -72,7 +72,7 @@ namespace nsData
 
                 if (Client.Deletable == false)
                 {
-                    Line = nsConvert::ConvertDataFromeRecordToLine(Client);
+                    Line = nsConvert::ConvertClientDataFromeRecordToLine(Client);
                     MyFile << Line << endl;
                 }
             }
@@ -81,6 +81,61 @@ namespace nsData
         }
 
         return vClients;
+    }
+
+    vector<stUserInfo> LoadUsersDataFromFile(string FileName) // To Load  Users Data Info From File
+    {
+        vector<stUserInfo> vUsersData;
+
+        fstream MyFile;
+
+        MyFile.open(FileName, ios::in);
+
+        if (MyFile.is_open())
+        {
+
+            string Line;
+            stUserInfo User;
+
+            while (getline(MyFile, Line))
+            {
+
+                User = nsConvert::ConvertUserDataFromeLineToRecord(Line);
+
+                vUsersData.push_back(User);
+            }
+
+            MyFile.close();
+        }
+
+        return vUsersData;
+    }
+
+    vector<stUserInfo> SaveUsersDataToFile(string FileName, vector<stUserInfo> vUsers) // To Delete By User are Deletable and save file
+    {
+        fstream MyFile;
+
+        string Line;
+
+        MyFile.open(FileName, ios::out);
+
+        if (MyFile.is_open())
+        {
+
+            for (stUserInfo User : vUsers)
+            {
+
+                if (User.Deletable == false)
+                {
+                    Line = nsConvert::ConvertUserDataFromeRecordToLine(User);
+                    MyFile << Line << endl;
+                }
+            }
+
+            MyFile.close();
+        }
+
+        return vUsers;
     }
 
 }

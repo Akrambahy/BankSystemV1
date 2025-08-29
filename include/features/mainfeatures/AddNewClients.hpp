@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "../../lib/Client.hpp"
+#include "../../lib/Permissions.hpp"
 #include "../../lib/utils/Convert.hpp"
 #include "../../../data/model/Types.hpp"
 
@@ -9,15 +10,21 @@ using namespace std;
 
 namespace nsAddNewClients
 {
+
     void AddNewClient(string FileName)
     {
         stClientInfo Client;
 
         Client = nsClient::ReadNewClient(FileName);
-        nsData::AddDataLineToFile(FileName, nsConvert::ConvertDataFromeRecordToLine(Client));
+        nsData::AddDataLineToFile(FileName, nsConvert::ConvertClientDataFromeRecordToLine(Client));
     }
-    void ShowAddNewClientsScreen(string FileName)
+    void ShowAddNewClientsScreen(string FileName, stUserInfo CurrentUser)
     {
+        if (!(nsPermissions::CheckAccessPermisson(enMainMenuePermissions::pAddNewClient, CurrentUser)))
+        {
+            nsPermissions::ShowAccesDenaidMassage();
+            return;
+        }
 
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------\n";
         cout << "-------------------------------------------Add New Client(s) Screen----------------------------------------------------------------------\n";
