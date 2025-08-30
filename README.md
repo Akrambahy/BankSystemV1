@@ -39,7 +39,7 @@ The system simulates basic banking operations with role-based access control.
 ---
 
 
-## BankSystem/
+## BankSystem
  │── include      # Header files (.h / .hpp)
  │── src          # Source files (.cpp)
  │── data         # Text files for storage
