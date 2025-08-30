@@ -55,5 +55,5 @@ Designing a small-scale but real-world inspired system
 ### Transactions
 ![Transactions](Demo/Images/TransactionsScreen.png)
 
-### Transactions
+### Manage Users
 ![Manage Users](Demo/Images/ManageUsersScreen.png)
