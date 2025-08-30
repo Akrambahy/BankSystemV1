@@ -38,6 +38,7 @@ The system simulates basic banking operations with role-based access control.
 
 ---
 
+## Project Structure
 ```
 BankSystem/
 │── include/   # Header files (.h / .hpp)
