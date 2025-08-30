@@ -8,11 +8,11 @@ The system simulates basic banking operations with role-based access control.
 ---
 
 ##  Features
-- 👥 User & Admin roles with different permissions  
-- 🏦 Customer account management (Add / Update / Delete)  
-- 💰 Financial transactions (Deposit / Withdraw / Transfer)  
-- 💾 Persistent storage using text files (File I/O)  
-- 🧩 Layered architecture:
+-  User & Admin roles with different permissions  
+-  Customer account management (Add / Update / Delete)  
+-  Financial transactions (Deposit / Withdraw / Transfer)  
+-  Persistent storage using text files (File I/O)  
+-  Layered architecture:
   - **Data Layer** – file handling and storage  
   - **Business Logic Layer** – rules and operations  
   - **Presentation Layer** – console-based user interaction  
@@ -30,17 +30,17 @@ The system simulates basic banking operations with role-based access control.
 
 ## Learning Outcomes
 
-Through this project, I practiced 
+- Through this project, I practiced 
 
-Organizing code into Header / Source Files
+- Organizing code into Header / Source Files
 
-Using Structs and Enums to model data and permissions
+- Using Structs and Enums to model data and permissions
 
-Applying File I/O for persistent storage
+- Applying File I/O for persistent storage
 
-Writing Clean Code for maintainability and scalability
+- Writing Clean Code for maintainability and scalability
 
-Designing a small-scale but real-world inspired system
+- Designing a small-scale but real-world inspired system
 
 --- 
 
